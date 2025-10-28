@@ -1,0 +1,786 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Tushar Kumar — Portfolio</title>
+  <meta name="description"
+    content="Tushar Kumar — B.Tech Computer Science Student (CGPA 7.89) | Full Stack Developer" />
+  <style>
+    :root {
+      --bg: #071026;
+      --card: #081227;
+      --muted: #9aa4b2;
+      --accent: #7c5cff;
+      --accent-2: #00c6ff;
+      --glass: rgba(255, 255, 255, 0.04);
+      --glass-2: rgba(255, 255, 255, 0.03);
+      --text: #e6eef8;
+      --border-faint: rgba(255, 255, 255, 0.06);
+    }
+
+    [data-theme="light"] {
+      --bg: linear-gradient(180deg, #f4f7fb, #eef6ff);
+      --card: #ffffff;
+      --muted: #55606b;
+      --accent: #6b46c1;
+      --accent-2: #1fb6ff;
+      --glass: rgba(11, 18, 32, 0.03);
+      --glass-2: rgba(11, 18, 32, 0.02);
+      --text: #0b1220;
+      --border-faint: rgba(11, 18, 32, 0.06);
+    }
+
+    * {
+      box-sizing: border-box;
+      scroll-behavior: smooth
+    }
+
+    html,
+    body {
+      height: 100%;
+      margin: 0;
+      font-family: Inter, Segoe UI, Roboto, system-ui, Arial;
+      background: var(--bg);
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 36px auto;
+      padding: 20px
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      position: relative;
+      z-index: 60
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px
+    }
+
+    .logo {
+      width: 48px;
+      height: 48px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 700;
+      box-shadow: 0 6px 30px rgba(2, 6, 23, 0.45)
+    }
+
+    nav {
+      display: flex;
+      gap: 10px;
+      align-items: center
+    }
+
+    nav a {
+      padding: 8px 12px;
+      border-radius: 8px;
+      color: var(--muted);
+      font-size: 14px
+    }
+
+    nav a:hover {
+      background: var(--glass);
+      color: var(--text)
+    }
+
+    .btn {
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      padding: 10px 14px;
+      border-radius: 10px;
+      color: white;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      transition: transform .18s ease, box-shadow .18s ease
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0, 198, 255, 0.12)
+    }
+
+    /* header controls visible on mobile */
+    .controls {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .icon-btn {
+      background: var(--glass);
+      border: 1px solid var(--border-faint);
+      padding: 8px;
+      border-radius: 8px;
+      cursor: pointer;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+    }
+
+    .icon-btn:hover {
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--text)
+    }
+
+    /* Mobile Sidebar */
+    .menu-toggle {
+      display: none;
+      font-size: 26px;
+      background: none;
+      border: none;
+      color: var(--text);
+      cursor: pointer;
+    }
+
+    /* overlay to dim page when mobile nav open */
+    .overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(2, 6, 23, 0.45);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .25s ease;
+      z-index: 45;
+      backdrop-filter: blur(2px);
+    }
+
+    .overlay.show {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .mobile-nav {
+      display: flex;
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 260px;
+      height: 100vh;
+      background: var(--card);
+      box-shadow: -6px 0 30px rgba(0, 0, 0, 0.45);
+      transition: right .28s cubic-bezier(.2, .9, .18, 1);
+      padding: 22px;
+      z-index: 60;
+      flex-direction: column;
+      gap: 16px;
+      border-left: 1px solid var(--border-faint);
+      backdrop-filter: blur(8px);
+    }
+
+    .mobile-nav.open {
+      right: 0
+    }
+
+    .mobile-nav a {
+      color: var(--text);
+      font-weight: 700;
+      padding: 10px;
+      border-radius: 8px
+    }
+
+    .mobile-nav a:hover {
+      background: var(--glass)
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr 360px;
+      gap: 24px;
+      align-items: center;
+      margin-top: 24px
+    }
+
+    .hero h1 {
+      font-size: 34px;
+      margin: 0
+    }
+
+    .hero p {
+      color: var(--muted);
+      margin-top: 10px;
+      line-height: 1.55
+    }
+
+    .profile-card {
+      background: var(--card);
+      padding: 16px;
+      border-radius: 14px;
+      box-shadow: 0 8px 30px rgba(2, 6, 23, 0.45);
+      overflow: hidden;
+      text-align: center
+    }
+
+    .avatar-wrap {
+      width: 100%;
+      height: 320px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: relative
+    }
+
+    .avatar-wrap img {
+      width: 280px;
+      height: 280px;
+      object-fit: cover;
+      border-radius: 50%;
+      animation: float 5s ease-in-out infinite alternate;
+      box-shadow: 0 6px 30px rgba(0, 0, 0, 0.45)
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateY(0px)
+      }
+
+      100% {
+        transform: translateY(-10px)
+      }
+    }
+
+    .sphere-caption {
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 8px;
+      text-align: center
+    }
+
+    section {
+      margin-top: 30px
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px
+    }
+
+    .card {
+      background: var(--card);
+      padding: 16px;
+      border-radius: 12px;
+      border: 1px solid var(--border-faint)
+    }
+
+    .chip {
+      display: inline-block;
+      padding: 8px 10px;
+      border-radius: 999px;
+      background: var(--glass);
+      color: var(--muted);
+      margin: 6px 6px 0 0;
+      font-size: 13px
+    }
+
+    /* Projects */
+    .projects {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 16px
+    }
+
+    .project-card {
+      padding: 16px;
+      border-radius: 16px;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01));
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.28);
+      transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .project-card::after {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      pointer-events: none;
+      border-radius: 16px;
+      background: linear-gradient(90deg, rgba(124, 92, 255, 0.06), rgba(0, 198, 255, 0.03));
+      opacity: 0;
+      transition: opacity .28s ease;
+    }
+
+    .project-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 18px 45px rgba(0, 0, 0, 0.42);
+      border-color: rgba(255, 255, 255, 0.12)
+    }
+
+    .project-card:hover::after {
+      opacity: 1
+    }
+
+    .project-title {
+      font-weight: 700;
+      margin: 0;
+      font-size: 18px
+    }
+
+    .project-desc {
+      margin-top: 6px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.5
+    }
+
+    /* Glassmorphic repo button with GitHub icon */
+    .repo-btn {
+      margin-top: 12px;
+      display: inline-flex;
+      gap: 8px;
+      align-items: center;
+      padding: 8px 12px;
+      border-radius: 12px;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.02));
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: var(--text);
+      font-weight: 600;
+      font-size: 14px;
+      text-decoration: none;
+      transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
+      box-shadow: 0 6px 16px rgba(2, 6, 23, 0.35);
+      backdrop-filter: blur(8px);
+    }
+
+    .repo-btn svg {
+      width: 18px;
+      height: 18px;
+      display: block;
+      filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.35));
+    }
+
+    .repo-btn:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 18px 40px rgba(124, 92, 255, 0.14);
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.03));
+      border-color: rgba(255, 255, 255, 0.18);
+    }
+
+    footer {
+      margin-top: 36px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 14px
+    }
+
+    .fade-up {
+      opacity: 0;
+      transform: translateY(8px);
+      transition: all 420ms cubic-bezier(.2, .8, .2, 1)
+    }
+
+    .fade-up.show {
+      opacity: 1;
+      transform: none
+    }
+
+    .muted {
+      color: var(--muted)
+    }
+
+    input,
+    textarea {
+      background: transparent;
+      border: 1px solid var(--glass);
+      color: var(--text);
+      padding: 10px;
+      border-radius: 8px
+    }
+
+    /* Responsive */
+    @media (max-width: 880px) {
+      .hero {
+        grid-template-columns: 1fr;
+      }
+
+      .profile-card {
+        order: -1
+      }
+
+      .grid {
+        grid-template-columns: 1fr
+      }
+
+      nav {
+        display: none
+      }
+
+      .menu-toggle {
+        display: block
+      }
+
+      .avatar-wrap img {
+        width: 220px;
+        height: 220px
+      }
+
+      .container {
+        padding: 16px
+      }
+
+      .mobile-only {
+        display: inline-flex
+      }
+    }
+
+    @media (min-width:881px) {
+      .mobile-only {
+        display: none
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container" id="page">
+    <header>
+      <div class="brand">
+        <div class="logo">TK</div>
+        <div>
+          <div style="font-weight:700">Tushar Kumar</div>
+          <div class="muted" style="font-size:13px">B.Tech • CGPA: 7.89</div>
+        </div>
+      </div>
+
+      <!-- header controls -->
+      <div class="controls">
+        <!-- theme toggle ALWAYS visible (desktop + mobile) -->
+        <button id="themeToggle" class="icon-btn" aria-label="Toggle theme" title="Toggle theme">🌗</button>
+
+        <!-- nav + menu toggle -->
+        <nav>
+          <a href="#home">Home</a>
+          <a href="#about">About</a>
+          <a href="#projects">Projects</a>
+          <a href="#skills">Skills</a>
+          <a href="#contact" class="btn">Contact</a>
+        </nav>
+
+        <button id="menuToggle" class="menu-toggle mobile-only" aria-expanded="false"
+          aria-controls="mobileNav">☰</button>
+      </div>
+    </header>
+
+    <!-- overlay -->
+    <div id="overlay" class="overlay" tabindex="-1" aria-hidden="true"></div>
+
+    <!-- Sidebar for mobile -->
+    <aside id="mobileNav" class="mobile-nav" aria-hidden="true">
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <div style="font-weight:700">Menu</div>
+        <button id="mobileClose" class="icon-btn" aria-label="Close menu">✕</button>
+      </div>
+      <a href="#home">🏠 Home</a>
+      <a href="#about">👤 About</a>
+      <a href="#projects">💻 Projects</a>
+      <a href="#skills">⚙️ Skills</a>
+      <a href="#contact">📧 Contact</a>
+      <div style="margin-top:auto">
+        <div style="font-size:13px;color:var(--muted)">Theme</div>
+        <div style="margin-top:8px;display:flex;gap:8px">
+          <button id="mobileThemeLight" class="icon-btn" title="Light theme">☀️</button>
+          <button id="mobileThemeDark" class="icon-btn" title="Dark theme">🌙</button>
+        </div>
+      </div>
+    </aside>
+
+    <main>
+      <section id="home" class="hero">
+        <div>
+          <h1 class="fade-up">Hi — I'm <span style="color:var(--accent)">Tushar Kumar</span></h1>
+          <p class="fade-up">Computer Science engineering student and full-stack developer. I build web apps, automation
+            tools and UIs — I like clean UX and pragmatic code. Recent projects include Musi-Zone and a Virtual Exam
+            Kiosk.</p>
+
+          <div style="margin-top:14px;display:flex;gap:10px;flex-wrap:wrap">
+            <a class="btn" href="#projects">See projects</a>
+            <a href="mailto:tksainii@gmail.com"
+              style="padding:10px 14px;border-radius:10px;background:transparent;border:1px solid var(--glass);color:var(--text);display:inline-flex;align-items:center">Email
+              me</a>
+          </div>
+
+          <div style="margin-top:16px" class="fade-up">
+            <div class="chip">Open to internships</div>
+            <div class="chip">Location: Dehradun, India</div>
+            <div class="chip">Resume: <a href="resume.pdf" id="resumeLink">Download</a></div>
+          </div>
+        </div>
+
+        <aside class="profile-card fade-up">
+          <div class="avatar-wrap">
+            <img src="assets/pic.png" alt="Avatar Placeholder">
+          </div>
+          <div class="sphere-caption">Crafting Ideas Into Interactive Experiences 🚀</div>
+          <div style="margin-top:12px;display:flex;justify-content:space-between;align-items:center">
+            <div>
+              <div style="font-weight:700">Full Stack Developer</div>
+              <div class="muted" style="font-size:13px">Frontend • Backend • APIs</div>
+            </div>
+            <div style="text-align:right">
+              <div style="font-weight:700">Projects</div>
+              <div class="muted" style="font-size:13px">4+ completed</div>
+            </div>
+          </div>
+        </aside>
+      </section>
+
+      <section id="about" class="fade-up">
+        <div class="card">
+          <h3>About</h3>
+          <p class="muted">I build web applications with clean UI and meaningful UX. Currently exploring backend APIs
+            and distributed systems while sharpening full-stack skills. Example projects: Virtual Exam Environment
+            (C++), Fake News Detection (ML), Bright Brain (AI tutor), Music-Zone (PHP).</p>
+        </div>
+      </section>
+
+      <section id="projects">
+        <h3>Projects</h3>
+        <div class="projects" style="margin-top:10px">
+          <div class="project-card">
+            <div class="project-title">Virtual Exam Environment</div>
+            <div class="project-desc">Secure kiosk-mode exam system in C++ that prevents unauthorized app access and
+              blocks key combos.</div>
+            <div style="margin-top:10px"><span class="chip">C++</span><span class="chip">System Programming</span></div>
+            <a class="repo-btn" href="https://github.com/Tushar-SWE/Virtual-Exam-Environment" target="_blank"
+              rel="noopener">
+              <!-- GitHub icon + label -->
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false">
+                <path
+                  d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.8-.25.8-.56 0-.28-.01-1.02-.02-2-3.2.7-3.88-1.54-3.88-1.54-.53-1.34-1.3-1.7-1.3-1.7-1.06-.72.08-.71.08-.71 1.17.08 1.78 1.2 1.78 1.2 1.04 1.77 2.73 1.26 3.4.96.11-.75.41-1.26.74-1.55-2.55-.29-5.24-1.27-5.24-5.65 0-1.25.45-2.28 1.2-3.09-.12-.29-.52-1.47.11-3.06 0 0 .98-.31 3.22 1.18.94-.26 1.95-.4 2.96-.4 1.01 0 2.02.14 2.96.4 2.24-1.49 3.22-1.18 3.22-1.18.63 1.59.23 2.77.11 3.06.75.81 1.2 1.84 1.2 3.09 0 4.39-2.7 5.35-5.27 5.64.42.36.8 1.07.8 2.16 0 1.56-.01 2.82-.01 3.2 0 .31.21.68.81.56C20.71 21.39 24 17.08 24 12c0-6.35-5.15-11.5-12-11.5z">
+                </path>
+              </svg>
+              View Repo
+            </a>
+          </div>
+
+          <div class="project-card">
+            <div class="project-title">Fake News Detection</div>
+            <div class="project-desc">ML model using TF-IDF and Logistic Regression to classify news articles; improved
+              performance via tuning.</div>
+            <div style="margin-top:10px"><span class="chip">Python</span><span class="chip">NLP</span></div>
+            <a class="repo-btn" href="https://github.com/Tushar-SWE/Fake-News-Detection-using-ML" target="_blank"
+              rel="noopener">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false">
+                <path
+                  d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.8-.25.8-.56 0-.28-.01-1.02-.02-2-3.2.7-3.88-1.54-3.88-1.54-.53-1.34-1.3-1.7-1.3-1.7-1.06-.72.08-.71.08-.71 1.17.08 1.78 1.2 1.78 1.2 1.04 1.77 2.73 1.26 3.4.96.11-.75.41-1.26.74-1.55-2.55-.29-5.24-1.27-5.24-5.65 0-1.25.45-2.28 1.2-3.09-.12-.29-.52-1.47.11-3.06 0 0 .98-.31 3.22 1.18.94-.26 1.95-.4 2.96-.4 1.01 0 2.02.14 2.96.4 2.24-1.49 3.22-1.18 3.22-1.18.63 1.59.23 2.77.11 3.06.75.81 1.2 1.84 1.2 3.09 0 4.39-2.7 5.35-5.27 5.64.42.36.8 1.07.8 2.16 0 1.56-.01 2.82-.01 3.2 0 .31.21.68.81.56C20.71 21.39 24 17.08 24 12c0-6.35-5.15-11.5-12-11.5z">
+                </path>
+              </svg>
+              View Repo
+            </a>
+          </div>
+
+          <div class="project-card">
+            <div class="project-title">Bright Brain (AI Tutor)</div>
+            <div class="project-desc">AI tutor chatbot built with PHP & ChatGPT API to explain concepts and assist
+              learning.</div>
+            <div style="margin-top:10px"><span class="chip">PHP</span><span class="chip">ChatGPT API</span></div>
+            <a class="repo-btn" href="https://github.com/Tushar-SWE/Bright-Brain" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false">
+                <path
+                  d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.8-.25.8-.56 0-.28-.01-1.02-.02-2-3.2.7-3.88-1.54-3.88-1.54-.53-1.34-1.3-1.7-1.3-1.7-1.06-.72.08-.71.08-.71 1.17.08 1.78 1.2 1.78 1.2 1.04 1.77 2.73 1.26 3.4.96.11-.75.41-1.26.74-1.55-2.55-.29-5.24-1.27-5.24-5.65 0-1.25.45-2.28 1.2-3.09-.12-.29-.52-1.47.11-3.06 0 0 .98-.31 3.22 1.18.94-.26 1.95-.4 2.96-.4 1.01 0 2.02.14 2.96.4 2.24-1.49 3.22-1.18 3.22-1.18.63 1.59.23 2.77.11 3.06.75.81 1.2 1.84 1.2 3.09 0 4.39-2.7 5.35-5.27 5.64.42.36.8 1.07.8 2.16 0 1.56-.01 2.82-.01 3.2 0 .31.21.68.81.56C20.71 21.39 24 17.08 24 12c0-6.35-5.15-11.5-12-11.5z">
+                </path>
+              </svg>
+              View Repo
+            </a>
+          </div>
+
+          <div class="project-card">
+            <div class="project-title">Music-Zone</div>
+            <div class="project-desc">Full-stack music streaming website using PHP and JioSaavn API with responsive UI
+              and autoplay features.</div>
+            <div style="margin-top:10px"><span class="chip">PHP</span><span class="chip">MySQL</span></div>
+            <a class="repo-btn" href="https://github.com/Tushar-SWE/Music-Zone" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false">
+                <path
+                  d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.8-.25.8-.56 0-.28-.01-1.02-.02-2-3.2.7-3.88-1.54-3.88-1.54-.53-1.34-1.3-1.7-1.3-1.7-1.06-.72.08-.71.08-.71 1.17.08 1.78 1.2 1.78 1.2 1.04 1.77 2.73 1.26 3.4.96.11-.75.41-1.26.74-1.55-2.55-.29-5.24-1.27-5.24-5.65 0-1.25.45-2.28 1.2-3.09-.12-.29-.52-1.47.11-3.06 0 0 .98-.31 3.22 1.18.94-.26 1.95-.4 2.96-.4 1.01 0 2.02.14 2.96.4 2.24-1.49 3.22-1.18 3.22-1.18.63 1.59.23 2.77.11 3.06.75.81 1.2 1.84 1.2 3.09 0 4.39-2.7 5.35-5.27 5.64.42.36.8 1.07.8 2.16 0 1.56-.01 2.82-.01 3.2 0 .31.21.68.81.56C20.71 21.39 24 17.08 24 12c0-6.35-5.15-11.5-12-11.5z">
+                </path>
+              </svg>
+              View Repo
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section id="skills">
+        <h3>Skills</h3>
+        <div class="grid" style="margin-top:12px">
+          <div class="card">
+            <h4>Frontend</h4>
+            <div style="margin-top:10px">
+              <span class="chip">HTML</span>
+              <span class="chip">CSS</span>
+              <span class="chip">JavaScript</span>
+              <span class="chip">React</span>
+            </div>
+          </div>
+
+          <div class="card">
+            <h4>Backend & Tools</h4>
+            <div style="margin-top:10px">
+              <span class="chip">C++</span>
+              <span class="chip">PHP</span>
+              <span class="chip">Python</span>
+              <span class="chip">MySQL</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="contact" class="fade-up">
+        <h3>Contact</h3>
+        <div class="card" style="display:flex;flex-direction:column;gap:12px">
+          <div class="muted">Want to collaborate? Send a quick message:</div>
+          <input id="name" placeholder="Your name" />
+          <input id="email" placeholder="Your email" />
+          <textarea id="message" placeholder="Message" rows="4"></textarea>
+          <div style="display:flex;gap:10px">
+            <button id="sendMail" class="btn">Send email</button>
+            <a href="https://github.com/Tushar-SWE" id="githubBtn"
+              style="padding:10px;border-radius:8px;border:1px solid var(--glass);display:inline-flex;align-items:center">GitHub</a>
+          </div>
+        </div>
+      </section>
+
+      <footer>
+        © 2025 Tushar Kumar | Designed with ❤️ and Code
+      </footer>
+    </main>
+  </div>
+
+  <script>
+    /* ---------- THEME: initialize and sync UI ---------- */
+    const themeToggle = document.getElementById('themeToggle');
+    const mobileThemeLight = document.getElementById('mobileThemeLight');
+    const mobileThemeDark = document.getElementById('mobileThemeDark');
+
+    // get stored theme or default to dark
+    const stored = localStorage.getItem('theme');
+    const initial = stored ? stored : 'dark';
+    document.documentElement.setAttribute('data-theme', initial);
+    // set theme icon
+    function refreshThemeIcon() {
+      const cur = document.documentElement.getAttribute('data-theme');
+      themeToggle.textContent = cur === 'light' ? '☀️' : '🌗';
+    }
+    refreshThemeIcon();
+
+    function setTheme(theme) {
+      document.documentElement.setAttribute('data-theme', theme);
+      localStorage.setItem('theme', theme);
+      refreshThemeIcon();
+    }
+
+    // toggle from header button
+    themeToggle.addEventListener('click', () => {
+      const cur = document.documentElement.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+      setTheme(cur);
+    });
+
+    // mobile theme quick buttons
+    mobileThemeLight?.addEventListener('click', () => setTheme('light'));
+    mobileThemeDark?.addEventListener('click', () => setTheme('dark'));
+
+    /* ---------- MOBILE NAV / SIDEBAR ---------- */
+    const menuToggle = document.getElementById('menuToggle');
+    const mobileNav = document.getElementById('mobileNav');
+    const overlay = document.getElementById('overlay');
+    const mobileClose = document.getElementById('mobileClose');
+
+    function openMobileNav() {
+      mobileNav.classList.add('open');
+      overlay.classList.add('show');
+      mobileNav.setAttribute('aria-hidden', 'false');
+      menuToggle && menuToggle.setAttribute('aria-expanded', 'true');
+      // focus trap: focus first link
+      const firstLink = mobileNav.querySelector('a');
+      firstLink && firstLink.focus();
+    }
+    function closeMobileNav() {
+      mobileNav.classList.remove('open');
+      overlay.classList.remove('show');
+      mobileNav.setAttribute('aria-hidden', 'true');
+      menuToggle && menuToggle.setAttribute('aria-expanded', 'false');
+      // restore focus to menu button
+      menuToggle && menuToggle.focus();
+    }
+
+    menuToggle?.addEventListener('click', () => {
+      if (mobileNav.classList.contains('open')) closeMobileNav();
+      else openMobileNav();
+    });
+
+    mobileClose?.addEventListener('click', closeMobileNav);
+    overlay?.addEventListener('click', closeMobileNav);
+
+    // close on Escape
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && mobileNav.classList.contains('open')) closeMobileNav();
+    });
+
+    // close when clicking nav links
+    mobileNav.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => {
+        // allow the link to navigate, but close menu immediately
+        closeMobileNav();
+      });
+    });
+
+    /* ---------- Fade-in (intersection observer) ---------- */
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('show');
+      });
+    }, { threshold: 0.08 });
+
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+    /* ---------- mailto ---------- */
+    document.getElementById('sendMail')?.addEventListener('click', () => {
+      const name = document.getElementById('name').value || 'No name';
+      const email = document.getElementById('email').value || 'no-reply@example.com';
+      const msg = document.getElementById('message').value || '';
+      const subject = encodeURIComponent('Portfolio contact from ' + name);
+      const body = encodeURIComponent('From: ' + name + ' (' + email + ')\n\n' + msg);
+      window.location.href = `mailto:tksainii@gmail.com?subject=${subject}&body=${body}`;
+    });
+
+    /* Accessibility: ensure menuToggle shows when JS is available on mobile */
+    document.documentElement.classList.remove('no-js');
+
+    // ensure header mobile menu indicator present (for non-mobile browsers menuToggle may be null)
+    if (menuToggle) {
+      // set initial aria-expanded
+      const expanded = mobileNav.classList.contains('open') ? 'true' : 'false';
+      menuToggle.setAttribute('aria-expanded', expanded);
+    }
+  </script>
+</body>
+
+</html>
